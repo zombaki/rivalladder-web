@@ -1,35 +1,70 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { environment } from '@environments/environment';
+import { Observable, of } from 'rxjs';
 import { AuthResponse, LoginDto, RegisterDto, AuthTokens } from '@models/auth.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = `${environment.apiUrl}/auth`;
+  // Mock data
+  private mockUser = {
+    id: '1',
+    email: 'demo@rivalladder.com',
+    firstName: 'Demo',
+    lastName: 'User',
+    role: 'USER',
+    clubId: 'club-1'
+  };
 
-  constructor(private http: HttpClient) {}
+  private mockTokens: AuthTokens = {
+    accessToken: 'mock-access-token-123',
+    refreshToken: 'mock-refresh-token-456'
+  };
+
+  constructor() {}
 
   login(credentials: LoginDto): Observable<AuthResponse> {
-    return this.http.post<AuthResponse>(`${this.apiUrl}/login`, credentials);
+    // Return mock response
+    const response: AuthResponse = {
+      user: this.mockUser,
+      tokens: this.mockTokens
+    };
+    // Store tokens in localStorage
+    localStorage.setItem('accessToken', this.mockTokens.accessToken);
+    localStorage.setItem('refreshToken', this.mockTokens.refreshToken);
+    return of(response);
   }
 
   register(data: RegisterDto): Observable<AuthResponse> {
-    return this.http.post<AuthResponse>(`${this.apiUrl}/register`, data);
+    // Return mock response with user data from registration
+    const response: AuthResponse = {
+      user: {
+        id: '2',
+        email: data.email,
+        firstName: data.firstName,
+        lastName: data.lastName,
+        role: 'USER',
+        clubId: data.clubId
+      },
+      tokens: this.mockTokens
+    };
+    localStorage.setItem('accessToken', this.mockTokens.accessToken);
+    localStorage.setItem('refreshToken', this.mockTokens.refreshToken);
+    return of(response);
   }
 
   logout(): Observable<void> {
-    return this.http.post<void>(`${this.apiUrl}/logout`, {});
+    localStorage.removeItem('accessToken');
+    localStorage.removeItem('refreshToken');
+    return of(undefined);
   }
 
   refreshToken(refreshToken: string): Observable<AuthTokens> {
-    return this.http.post<AuthTokens>(`${this.apiUrl}/refresh`, { refreshToken });
+    return of(this.mockTokens);
   }
 
   getCurrentUser(): Observable<any> {
-    return this.http.get(`${this.apiUrl}/me`);
+    return of(this.mockUser);
   }
 
   isLoggedIn(): boolean {
