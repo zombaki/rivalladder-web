@@ -1,0 +1,58 @@
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-container {
+  max-width: 1400px;
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 16px;
+}
+
+.navbar-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  .app-name {
+    font-size: 20px;
+    font-weight: 500;
+    cursor: pointer;
+    user-select: none;
+  }
+}
+
+.navbar-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  button {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+
+    &.active {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+  }
+
+  .user-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+}
+
+@media (max-width: 768px) {
+  .navbar-right button span {
+    display: none;
+  }
+}

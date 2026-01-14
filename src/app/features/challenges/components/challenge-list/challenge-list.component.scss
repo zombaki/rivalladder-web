@@ -1,0 +1,104 @@
+.challenges-container {
+  padding: 24px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+mat-card-header {
+  mat-card-title {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 24px;
+  }
+}
+
+.challenge-item {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.challenge-info {
+  flex: 1;
+}
+
+.players {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 12px;
+
+  .player {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    .player-details {
+      display: flex;
+      flex-direction: column;
+
+      .player-name {
+        font-weight: 500;
+        font-size: 14px;
+      }
+
+      .player-rank {
+        font-size: 12px;
+        color: rgba(0, 0, 0, 0.6);
+      }
+    }
+  }
+
+  .vs-icon {
+    color: rgba(0, 0, 0, 0.6);
+  }
+}
+
+.challenge-meta {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+
+  .challenge-date {
+    font-size: 12px;
+    color: rgba(0, 0, 0, 0.6);
+  }
+}
+
+.challenge-actions {
+  display: flex;
+  gap: 8px;
+
+  button {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+}
+
+.loading-container {
+  display: flex;
+  justify-content: center;
+  padding: 48px;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 48px 24px;
+  color: rgba(0, 0, 0, 0.6);
+
+  mat-icon {
+    font-size: 48px;
+    width: 48px;
+    height: 48px;
+    margin-bottom: 16px;
+  }
+}

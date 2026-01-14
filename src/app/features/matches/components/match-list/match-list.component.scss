@@ -1,0 +1,123 @@
+.matches-container {
+  padding: 24px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+mat-card-header {
+  mat-card-title {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 24px;
+  }
+}
+
+.match-item {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.match-info {
+  flex: 1;
+}
+
+.players {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 12px;
+
+  .player {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    position: relative;
+
+    &.winner {
+      .player-name {
+        font-weight: 600;
+        color: #4caf50;
+      }
+
+      .player-score {
+        font-weight: 700;
+      }
+    }
+
+    .player-details {
+      display: flex;
+      flex-direction: column;
+
+      .player-name {
+        font-size: 14px;
+      }
+
+      .player-score {
+        font-size: 24px;
+        font-weight: bold;
+        color: rgba(0, 0, 0, 0.87);
+      }
+    }
+
+    .trophy {
+      color: #ffd700;
+      font-size: 20px;
+      width: 20px;
+      height: 20px;
+    }
+  }
+
+  .vs-icon {
+    color: rgba(0, 0, 0, 0.6);
+  }
+}
+
+.match-meta {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+
+  .match-date {
+    font-size: 12px;
+    color: rgba(0, 0, 0, 0.6);
+  }
+}
+
+.match-actions {
+  display: flex;
+  gap: 8px;
+
+  button {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+}
+
+.loading-container {
+  display: flex;
+  justify-content: center;
+  padding: 48px;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 48px 24px;
+  color: rgba(0, 0, 0, 0.6);
+
+  mat-icon {
+    font-size: 48px;
+    width: 48px;
+    height: 48px;
+    margin-bottom: 16px;
+  }
+}

@@ -1,0 +1,89 @@
+<div class="challenges-container">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>
+        <mat-icon>sports</mat-icon>
+        <span>My Challenges</span>
+      </mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+      <div *ngIf="loading$ | async" class="loading-container">
+        <mat-spinner></mat-spinner>
+      </div>
+
+      <mat-list *ngIf="!(loading$ | async)">
+        <mat-list-item *ngFor="let challenge of challenges$ | async">
+          <div class="challenge-item">
+            <div class="challenge-info">
+              <div class="players">
+                <div class="player">
+                  <img 
+                    [src]="challenge.challenger?.photoUrl || 'assets/default-avatar.png'" 
+                    alt="Challenger"
+                    class="user-avatar"
+                  />
+                  <div class="player-details">
+                    <span class="player-name">
+                      {{ challenge.challenger?.firstName }} {{ challenge.challenger?.lastName }}
+                    </span>
+                    <span class="player-rank">Rank #{{ challenge.challenger?.rank }}</span>
+                  </div>
+                </div>
+
+                <mat-icon class="vs-icon">compare_arrows</mat-icon>
+
+                <div class="player">
+                  <img 
+                    [src]="challenge.challenged?.photoUrl || 'assets/default-avatar.png'" 
+                    alt="Challenged"
+                    class="user-avatar"
+                  />
+                  <div class="player-details">
+                    <span class="player-name">
+                      {{ challenge.challenged?.firstName }} {{ challenge.challenged?.lastName }}
+                    </span>
+                    <span class="player-rank">Rank #{{ challenge.challenged?.rank }}</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="challenge-meta">
+                <mat-chip [class]="getStatusClass(challenge.status)">
+                  {{ challenge.status }}
+                </mat-chip>
+                <span class="challenge-date">
+                  {{ challenge.createdAt | date: 'short' }}
+                </span>
+              </div>
+            </div>
+
+            <div class="challenge-actions" *ngIf="challenge.status === 'PENDING' && isIncomingChallenge(challenge, (currentUser$ | async)?.id)">
+              <button 
+                mat-raised-button 
+                color="primary"
+                (click)="acceptChallenge(challenge.id)"
+              >
+                <mat-icon>check</mat-icon>
+                Accept
+              </button>
+              <button 
+                mat-raised-button 
+                color="warn"
+                (click)="declineChallenge(challenge.id)"
+              >
+                <mat-icon>close</mat-icon>
+                Decline
+              </button>
+            </div>
+          </div>
+        </mat-list-item>
+      </mat-list>
+
+      <div *ngIf="!(loading$ | async) && ((challenges$ | async)?.length === 0)" class="empty-state">
+        <mat-icon>info</mat-icon>
+        <p>No challenges yet. Challenge someone from the ladder!</p>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

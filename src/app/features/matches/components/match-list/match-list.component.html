@@ -1,0 +1,87 @@
+<div class="matches-container">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>
+        <mat-icon>scoreboard</mat-icon>
+        <span>Match History</span>
+      </mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+      <div *ngIf="loading$ | async" class="loading-container">
+        <mat-spinner></mat-spinner>
+      </div>
+
+      <mat-list *ngIf="!(loading$ | async)">
+        <mat-list-item *ngFor="let match of matches$ | async">
+          <div class="match-item">
+            <div class="match-info">
+              <div class="players">
+                <div class="player" [class.winner]="isWinner(match, match.player1Id)">
+                  <img 
+                    [src]="match.player1?.photoUrl || 'assets/default-avatar.png'" 
+                    alt="Player 1"
+                    class="user-avatar"
+                  />
+                  <div class="player-details">
+                    <span class="player-name">
+                      {{ match.player1?.firstName }} {{ match.player1?.lastName }}
+                    </span>
+                    <span class="player-score" *ngIf="match.player1Score !== undefined">
+                      {{ match.player1Score }}
+                    </span>
+                  </div>
+                  <mat-icon *ngIf="isWinner(match, match.player1Id)" class="trophy">emoji_events</mat-icon>
+                </div>
+
+                <mat-icon class="vs-icon">compare_arrows</mat-icon>
+
+                <div class="player" [class.winner]="isWinner(match, match.player2Id)">
+                  <img 
+                    [src]="match.player2?.photoUrl || 'assets/default-avatar.png'" 
+                    alt="Player 2"
+                    class="user-avatar"
+                  />
+                  <div class="player-details">
+                    <span class="player-name">
+                      {{ match.player2?.firstName }} {{ match.player2?.lastName }}
+                    </span>
+                    <span class="player-score" *ngIf="match.player2Score !== undefined">
+                      {{ match.player2Score }}
+                    </span>
+                  </div>
+                  <mat-icon *ngIf="isWinner(match, match.player2Id)" class="trophy">emoji_events</mat-icon>
+                </div>
+              </div>
+
+              <div class="match-meta">
+                <mat-chip [class]="getStatusClass(match.status)">
+                  {{ match.status }}
+                </mat-chip>
+                <span class="match-date">
+                  {{ match.completedDate || match.createdAt | date: 'short' }}
+                </span>
+              </div>
+            </div>
+
+            <div class="match-actions" *ngIf="match.status !== 'COMPLETED'">
+              <button 
+                mat-raised-button 
+                color="primary"
+                [routerLink]="['/matches/score', match.id]"
+              >
+                <mat-icon>edit</mat-icon>
+                Enter Score
+              </button>
+            </div>
+          </div>
+        </mat-list-item>
+      </mat-list>
+
+      <div *ngIf="!(loading$ | async) && ((matches$ | async)?.length === 0)" class="empty-state">
+        <mat-icon>info</mat-icon>
+        <p>No matches yet. Accept a challenge to start playing!</p>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>
