@@ -8,6 +8,11 @@ import { provideStoreDevtools } from '@ngrx/store-devtools';
 import { routes } from './app.routes';
 import { reducers, metaReducers } from './store';
 import { AuthEffects } from './features/auth/store/auth.effects';
+import { ChallengeEffects } from './features/challenges/store/challenge.effects';
+import { LadderEffects } from './features/ladder/store/ladder.effects';
+import { MatchEffects } from './features/matches/store/match.effects';
+import { UserEffects } from './features/users/store/user.effects';
+import { ClubEffects } from './features/clubs/store/club.effects';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './core/interceptors/auth.interceptor';
 import { HttpErrorInterceptor } from './core/interceptors/http-error.interceptor';
@@ -19,7 +24,14 @@ export const appConfig: ApplicationConfig = {
     provideAnimations(),
     provideHttpClient(),
     provideStore(reducers, { metaReducers }),
-    provideEffects([AuthEffects]),
+    provideEffects([
+      AuthEffects,
+      ChallengeEffects,
+      LadderEffects,
+      MatchEffects,
+      UserEffects,
+      ClubEffects
+    ]),
     provideStoreDevtools({
       maxAge: 25,
       logOnly: !isDevMode(),
