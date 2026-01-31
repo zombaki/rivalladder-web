@@ -1,0 +1,32 @@
+<mat-toolbar color="primary" class="header">
+  <div class="header-content">
+    <div class="logo-section">
+      <button mat-icon-button routerLink="/">
+        <mat-icon>sports_tennis</mat-icon>
+      </button>
+      <span class="logo-text" routerLink="/">Rival Ladder</span>
+    </div>
+
+    <div class="spacer"></div>
+
+    <div class="actions">
+      <button 
+        mat-icon-button 
+        [matMenuTriggerFor]="themeMenu"
+        [attr.aria-label]="'Current theme: ' + getThemeLabel()">
+        <mat-icon>{{ getThemeIcon() }}</mat-icon>
+      </button>
+
+      <mat-menu #themeMenu="matMenu">
+        <button 
+          mat-menu-item 
+          *ngFor="let theme of themes"
+          (click)="themeService.setTheme(theme.value)"
+          [class.active]="themeService.theme() === theme.value">
+          <mat-icon>{{ theme.icon }}</mat-icon>
+          <span>{{ theme.label }}</span>
+        </button>
+      </mat-menu>
+    </div>
+  </div>
+</mat-toolbar>

@@ -3,18 +3,61 @@
 
 @include mat.core();
 
-$theme: mat.define-theme((
+// Define light theme
+$light-theme: mat.define-theme((
   color: (
     theme-type: light,
     primary: mat.$azure-palette,
+    tertiary: mat.$blue-palette,
+  ),
+));
+
+// Define dark theme
+$dark-theme: mat.define-theme((
+  color: (
+    theme-type: dark,
+    primary: mat.$azure-palette,
+    tertiary: mat.$blue-palette,
+  ),
+));
+
+// Define purple theme
+$purple-theme: mat.define-theme((
+  color: (
+    theme-type: light,
+    primary: mat.$violet-palette,
+    tertiary: mat.$magenta-palette,
+  ),
+));
+
+// Define green theme
+$green-theme: mat.define-theme((
+  color: (
+    theme-type: light,
+    primary: mat.$green-palette,
+    tertiary: mat.$cyan-palette,
   ),
 ));
 
 html {
-  @include mat.all-component-themes($theme);
+  @include mat.all-component-themes($light-theme);
+  
+  &.dark-theme {
+    @include mat.all-component-colors($dark-theme);
+  }
+  
+  &.purple-theme {
+    @include mat.all-component-colors($purple-theme);
+  }
+  
+  &.green-theme {
+    @include mat.all-component-colors($green-theme);
+  }
 }
 
 body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
+
