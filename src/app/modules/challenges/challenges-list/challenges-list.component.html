@@ -1,0 +1,116 @@
+<div class="challenges-container">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>My Challenges</mat-card-title>
+      <mat-card-subtitle>Manage your active and completed challenges</mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content>
+      <mat-tab-group>
+        <mat-tab label="Active">
+          @if (isLoading$ | async) {
+            <div class="loading-container">
+              <mat-spinner diameter="40"></mat-spinner>
+            </div>
+          } @else {
+            <div class="challenges-list">
+              @if ((activeChallenges$ | async)?.length === 0) {
+                <div class="empty-state">
+                  <mat-icon>sports_tennis</mat-icon>
+                  <h3>No active challenges</h3>
+                  <p>Challenge other players from the ladder</p>
+                  <button mat-raised-button color="primary" routerLink="/dashboard/ladder">
+                    View Ladder
+                  </button>
+                </div>
+              } @else {
+                @for (challenge of (activeChallenges$ | async); track challenge.id) {
+                  <mat-card class="challenge-card">
+                    <div class="challenge-header">
+                      <mat-chip [color]="getStatusColor(challenge.status)">
+                        {{ challenge.status }}
+                      </mat-chip>
+                      @if (challenge.scheduledDate) {
+                        <span class="challenge-date">
+                          {{ challenge.scheduledDate | date: 'MMM d, y' }}
+                        </span>
+                      }
+                    </div>
+                    
+                    <div class="challenge-content">
+                      <div class="player-matchup">
+                        <div class="player">
+                          <span class="player-name">{{ challenge.challengerName }}</span>
+                          <span class="player-rank">Rank #{{ challenge.challengerRank }}</span>
+                        </div>
+                        <mat-icon class="vs-icon">sports_tennis</mat-icon>
+                        <div class="player">
+                          <span class="player-name">{{ challenge.opponentName }}</span>
+                          <span class="player-rank">Rank #{{ challenge.opponentRank }}</span>
+                        </div>
+                      </div>
+
+                      @if (challenge.notes) {
+                        <p class="challenge-notes">{{ challenge.notes }}</p>
+                      }
+
+                      @if (challenge.status === 'pending') {
+                        <div class="challenge-actions">
+                          <button mat-raised-button color="primary" (click)="acceptChallenge(challenge)">
+                            Accept
+                          </button>
+                          <button mat-stroked-button color="warn" (click)="declineChallenge(challenge)">
+                            Decline
+                          </button>
+                        </div>
+                      }
+                    </div>
+                  </mat-card>
+                }
+              }
+            </div>
+          }
+        </mat-tab>
+
+        <mat-tab label="Completed">
+          <div class="challenges-list">
+            @if ((completedChallenges$ | async)?.length === 0) {
+              <div class="empty-state">
+                <mat-icon>history</mat-icon>
+                <h3>No completed challenges</h3>
+                <p>Your match history will appear here</p>
+              </div>
+            } @else {
+              @for (challenge of (completedChallenges$ | async); track challenge.id) {
+                <mat-card class="challenge-card completed">
+                  <div class="challenge-header">
+                    <mat-chip color="accent">Completed</mat-chip>
+                    @if (challenge.completedDate) {
+                      <span class="challenge-date">
+                        {{ challenge.completedDate | date: 'MMM d, y' }}
+                      </span>
+                    }
+                  </div>
+                  
+                  <div class="challenge-content">
+                    <div class="player-matchup">
+                      <div class="player" [class.winner]="challenge.winnerId === challenge.challengerId">
+                        <span class="player-name">{{ challenge.challengerName }}</span>
+                        <span class="player-score">{{ challenge.challengerScore || 0 }}</span>
+                      </div>
+                      <mat-icon class="vs-icon">sports_tennis</mat-icon>
+                      <div class="player" [class.winner]="challenge.winnerId === challenge.opponentId">
+                        <span class="player-name">{{ challenge.opponentName }}</span>
+                        <span class="player-score">{{ challenge.opponentScore || 0 }}</span>
+                      </div>
+                    </div>
+                  </div>
+                </mat-card>
+              }
+            }
+          </div>
+        </mat-tab>
+      </mat-tab-group>
+    </mat-card-content>
+  </mat-card>
+</div>

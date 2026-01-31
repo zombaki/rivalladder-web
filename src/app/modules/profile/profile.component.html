@@ -1,0 +1,130 @@
+<div class="profile-container">
+  @if (currentUser$ | async; as user) {
+    @if (currentPlayer$ | async; as player) {
+      <div class="profile-header">
+        <mat-card class="profile-card">
+          <mat-card-content>
+            <div class="profile-info">
+              <div class="avatar-section">
+                @if (player.avatar) {
+                  <img [src]="player.avatar" [alt]="user.firstName + ' ' + user.lastName" class="profile-avatar">
+                } @else {
+                  <mat-icon class="profile-avatar-icon">account_circle</mat-icon>
+                }
+              </div>
+              
+              <div class="info-section">
+                <h1>{{ user.firstName }} {{ user.lastName }}</h1>
+                <p class="email">{{ user.email }}</p>
+                <p class="member-since">
+                  <mat-icon>event</mat-icon>
+                  Member for {{ getMembershipDuration(user.memberSince) }}
+                </p>
+              </div>
+
+              <div class="rank-section">
+                <div class="current-rank">
+                  <span class="rank-label">Current Rank</span>
+                  <span class="rank-value">#{{ player.currentRank }}</span>
+                </div>
+                @if ((stats$ | async)?.rankChange; as change) {
+                  @if (change !== 0) {
+                    <mat-chip [class.up]="change > 0" [class.down]="change < 0">
+                      <mat-icon>{{ change > 0 ? 'arrow_upward' : 'arrow_downward' }}</mat-icon>
+                      {{ Math.abs(change) }} from last week
+                    </mat-chip>
+                  }
+                }
+              </div>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+
+      <div class="stats-grid">
+        <mat-card class="stat-card">
+          <mat-card-content>
+            <mat-icon class="stat-icon">emoji_events</mat-icon>
+            <div class="stat-value">{{ player.wins }}</div>
+            <div class="stat-label">Wins</div>
+          </mat-card-content>
+        </mat-card>
+
+        <mat-card class="stat-card">
+          <mat-card-content>
+            <mat-icon class="stat-icon">cancel</mat-icon>
+            <div class="stat-value">{{ player.losses }}</div>
+            <div class="stat-label">Losses</div>
+          </mat-card-content>
+        </mat-card>
+
+        <mat-card class="stat-card">
+          <mat-card-content>
+            <mat-icon class="stat-icon">percent</mat-icon>
+            <div class="stat-value">{{ (stats$ | async)?.winRate }}%</div>
+            <div class="stat-label">Win Rate</div>
+          </mat-card-content>
+        </mat-card>
+
+        <mat-card class="stat-card">
+          <mat-card-content>
+            <mat-icon class="stat-icon">stars</mat-icon>
+            <div class="stat-value">{{ player.points }}</div>
+            <div class="stat-label">Points</div>
+          </mat-card-content>
+        </mat-card>
+
+        <mat-card class="stat-card">
+          <mat-card-content>
+            <mat-icon class="stat-icon">local_fire_department</mat-icon>
+            <div class="stat-value">{{ player.winStreak }}</div>
+            <div class="stat-label">Win Streak</div>
+          </mat-card-content>
+        </mat-card>
+
+        <mat-card class="stat-card">
+          <mat-card-content>
+            <mat-icon class="stat-icon">sports</mat-icon>
+            <div class="stat-value">{{ (stats$ | async)?.totalMatches }}</div>
+            <div class="stat-label">Total Matches</div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+
+      <mat-card class="recent-activity">
+        <mat-card-header>
+          <mat-card-title>Recent Activity</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          @if ((myChallenges$ | async)?.length === 0) {
+            <div class="empty-state">
+              <mat-icon>sports_tennis</mat-icon>
+              <p>No recent activity</p>
+            </div>
+          } @else {
+            <div class="activity-list">
+              @for (challenge of (myChallenges$ | async)?.slice(0, 5); track challenge.id) {
+                <div class="activity-item">
+                  <mat-icon>sports_tennis</mat-icon>
+                  <div class="activity-details">
+                    <span class="activity-text">
+                      @if (challenge.challengerId === player.id) {
+                        You challenged {{ challenge.opponentName }}
+                      } @else {
+                        {{ challenge.challengerName }} challenged you
+                      }
+                    </span>
+                    <span class="activity-date">{{ challenge.createdDate | date: 'short' }}</span>
+                  </div>
+                  <mat-chip [color]="challenge.status === 'completed' ? 'accent' : 'primary'">
+                    {{ challenge.status }}
+                  </mat-chip>
+                </div>
+              }
+            </div>
+          }
+        </mat-card-content>
+      </mat-card>
+    }
+  }
+</div>

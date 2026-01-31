@@ -1,0 +1,77 @@
+<div class="login-container">
+  <mat-card class="login-card">
+    <mat-card-header>
+      <mat-card-title>Welcome Back</mat-card-title>
+      <mat-card-subtitle>Sign in to your account</mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content>
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login-form">
+        @if (error$ | async; as errorMessage) {
+          <div class="error-message">
+            {{ errorMessage }}
+          </div>
+        }
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Email</mat-label>
+          <input
+            matInput
+            type="email"
+            formControlName="email"
+            placeholder="Enter your email"
+          />
+          @if (email?.invalid && email?.touched) {
+            <mat-error>
+              @if (email?.errors?.['required']) {
+                <span>Email is required</span>
+              }
+              @if (email?.errors?.['email']) {
+                <span>Please enter a valid email</span>
+              }
+            </mat-error>
+          }
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Password</mat-label>
+          <input
+            matInput
+            type="password"
+            formControlName="password"
+            placeholder="Enter your password"
+          />
+          @if (password?.invalid && password?.touched) {
+            <mat-error>
+              @if (password?.errors?.['required']) {
+                <span>Password is required</span>
+              }
+              @if (password?.errors?.['minlength']) {
+                <span>Password must be at least 6 characters</span>
+              }
+            </mat-error>
+          }
+        </mat-form-field>
+
+        <button
+          mat-raised-button
+          color="primary"
+          type="submit"
+          class="login-button"
+          [disabled]="(isLoading$ | async) || loginForm.invalid"
+        >
+          @if (isLoading$ | async) {
+            <mat-spinner diameter="20" class="button-spinner"></mat-spinner>
+            <span>Signing in...</span>
+          } @else {
+            <span>Sign In</span>
+          }
+        </button>
+
+        <div class="login-footer">
+          <p class="demo-note">Demo: Use john.doe@example.com / password123</p>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

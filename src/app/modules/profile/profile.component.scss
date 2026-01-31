@@ -1,0 +1,214 @@
+.profile-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.profile-header {
+  margin-bottom: 2rem;
+
+  .profile-card {
+    mat-card-content {
+      padding: 2rem;
+    }
+
+    .profile-info {
+      display: flex;
+      gap: 2rem;
+      align-items: center;
+
+      @media (max-width: 768px) {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .avatar-section {
+        .profile-avatar {
+          width: 120px;
+          height: 120px;
+          border-radius: 50%;
+          object-fit: cover;
+          border: 4px solid #673ab7;
+        }
+
+        .profile-avatar-icon {
+          font-size: 120px;
+          width: 120px;
+          height: 120px;
+          color: #999;
+        }
+      }
+
+      .info-section {
+        flex: 1;
+
+        h1 {
+          margin: 0 0 0.5rem 0;
+          font-size: 2rem;
+          color: #333;
+        }
+
+        .email {
+          color: #666;
+          margin: 0 0 0.5rem 0;
+        }
+
+        .member-since {
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+          color: #888;
+          margin: 0;
+
+          @media (max-width: 768px) {
+            justify-content: center;
+          }
+
+          mat-icon {
+            font-size: 18px;
+            width: 18px;
+            height: 18px;
+          }
+        }
+      }
+
+      .rank-section {
+        text-align: center;
+
+        .current-rank {
+          display: flex;
+          flex-direction: column;
+          gap: 0.5rem;
+          margin-bottom: 1rem;
+
+          .rank-label {
+            color: #666;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+          }
+
+          .rank-value {
+            font-size: 3rem;
+            font-weight: 700;
+            color: #673ab7;
+            line-height: 1;
+          }
+        }
+
+        mat-chip {
+          &.up {
+            background: #4caf50;
+            color: white;
+          }
+
+          &.down {
+            background: #f44336;
+            color: white;
+          }
+
+          mat-icon {
+            font-size: 16px;
+            width: 16px;
+            height: 16px;
+          }
+        }
+      }
+    }
+  }
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
+
+  .stat-card {
+    text-align: center;
+
+    mat-card-content {
+      padding: 1.5rem;
+
+      .stat-icon {
+        font-size: 48px;
+        width: 48px;
+        height: 48px;
+        color: #673ab7;
+        margin-bottom: 0.5rem;
+      }
+
+      .stat-value {
+        font-size: 2rem;
+        font-weight: 600;
+        color: #333;
+        margin-bottom: 0.25rem;
+      }
+
+      .stat-label {
+        color: #666;
+        font-size: 0.9rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+    }
+  }
+}
+
+.recent-activity {
+  mat-card-header {
+    margin-bottom: 1rem;
+  }
+
+  .empty-state {
+    text-align: center;
+    padding: 2rem;
+    color: #999;
+
+    mat-icon {
+      font-size: 64px;
+      width: 64px;
+      height: 64px;
+      margin-bottom: 1rem;
+    }
+
+    p {
+      margin: 0;
+    }
+  }
+
+  .activity-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+
+    .activity-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem;
+      border-radius: 8px;
+      background: #fafafa;
+
+      mat-icon {
+        color: #673ab7;
+      }
+
+      .activity-details {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 0.25rem;
+
+        .activity-text {
+          color: #333;
+          font-weight: 500;
+        }
+
+        .activity-date {
+          color: #999;
+          font-size: 0.85rem;
+        }
+      }
+    }
+  }
+}

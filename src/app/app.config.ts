@@ -7,6 +7,9 @@ import { provideStoreDevtools } from '@ngrx/store-devtools';
 
 import { routes } from './app.routes';
 import { reducers } from './store/app.reducer';
+import { AuthEffects } from './store/auth/auth.effects';
+import { PlayersEffects } from './store/players/players.effects';
+import { ChallengesEffects } from './store/challenges/challenges.effects';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -14,7 +17,7 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     provideAnimationsAsync(),
     provideStore(reducers),
-    provideEffects(),
+    provideEffects([AuthEffects, PlayersEffects, ChallengesEffects]),
     provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() })
   ]
 };

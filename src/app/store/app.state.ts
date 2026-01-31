@@ -1,4 +1,10 @@
+import { AuthState } from './auth/auth.reducer';
+import { PlayersState } from './players/players.reducer';
+import { ChallengesState } from './challenges/challenges.reducer';
+
 // Define your application state interface here
 export interface AppState {
-  // Add your state slices here
+  auth: AuthState;
+  players: PlayersState;
+  challenges: ChallengesState;
 }
