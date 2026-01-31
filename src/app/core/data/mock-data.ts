@@ -1,23 +1,39 @@
-import { AuthUser, Player, Challenge, Match, Club, ChallengeStatus } from '../models';
+import { AuthUser, Player, Challenge, Match, Club, ChallengeStatus, UserRole } from '../models';
 
 export class MockData {
-  static readonly CLUB: Club = {
-    id: 'club-1',
-    name: 'Elite Tennis Club',
-    description: 'Premier tennis club with competitive ladder system',
-    location: 'New York, NY',
-    memberCount: 50,
-    founded: new Date('2020-01-01'),
-    logo: 'assets/club-logo.png'
-  };
+  static readonly CLUBS: Club[] = [
+    {
+      id: 'club-1',
+      name: 'Elite Tennis Club',
+      description: 'Premier tennis club with competitive ladder system',
+      location: 'New York, NY',
+      memberCount: 50,
+      founded: new Date('2020-01-01'),
+      logo: 'assets/club-logo.png'
+    },
+    {
+      id: 'club-2',
+      name: 'Riverside Racquet Club',
+      description: 'Family-friendly tennis club with professional coaching',
+      location: 'Los Angeles, CA',
+      memberCount: 75,
+      founded: new Date('2018-05-15'),
+      logo: 'assets/club-logo-2.png'
+    }
+  ];
+
+  // Keep backward compatibility
+  static readonly CLUB: Club = MockData.CLUBS[0];
 
   static readonly USERS: AuthUser[] = [
+    // Regular Members - Elite Tennis Club
     {
       id: 'user-1',
       email: 'john.doe@example.com',
       firstName: 'John',
       lastName: 'Doe',
       clubId: 'club-1',
+      role: UserRole.Member,
       memberSince: new Date('2023-01-15'),
       token: 'mock-token-john-doe',
       avatar: 'https://i.pravatar.cc/150?img=12'
@@ -28,6 +44,7 @@ export class MockData {
       firstName: 'Jane',
       lastName: 'Smith',
       clubId: 'club-1',
+      role: UserRole.Member,
       memberSince: new Date('2023-02-20'),
       token: 'mock-token-jane-smith',
       avatar: 'https://i.pravatar.cc/150?img=5'
@@ -38,9 +55,33 @@ export class MockData {
       firstName: 'Mike',
       lastName: 'Johnson',
       clubId: 'club-1',
+      role: UserRole.Member,
       memberSince: new Date('2023-03-10'),
       token: 'mock-token-mike-johnson',
       avatar: 'https://i.pravatar.cc/150?img=33'
+    },
+    // Admin Users
+    {
+      id: 'admin-1',
+      email: 'admin@elitetennis.com',
+      firstName: 'Robert',
+      lastName: 'Williams',
+      clubId: 'club-1',
+      role: UserRole.Admin,
+      memberSince: new Date('2020-01-01'),
+      token: 'mock-token-admin-elite',
+      avatar: 'https://i.pravatar.cc/150?img=68'
+    },
+    {
+      id: 'admin-2',
+      email: 'admin@riverside.com',
+      firstName: 'Sarah',
+      lastName: 'Martinez',
+      clubId: 'club-2',
+      role: UserRole.Admin,
+      memberSince: new Date('2018-05-15'),
+      token: 'mock-token-admin-riverside',
+      avatar: 'https://i.pravatar.cc/150?img=47'
     }
   ];
 

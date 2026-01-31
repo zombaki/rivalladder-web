@@ -37,6 +37,25 @@ export const authReducer = createReducer(
     isLoading: false,
     error
   })),
+  on(AuthActions.adminLogin, (state) => ({
+    ...state,
+    isLoading: true,
+    error: null
+  })),
+  on(AuthActions.adminLoginSuccess, (state, { user }) => ({
+    ...state,
+    user,
+    isAuthenticated: true,
+    isLoading: false,
+    error: null
+  })),
+  on(AuthActions.adminLoginFailure, (state, { error }) => ({
+    ...state,
+    user: null,
+    isAuthenticated: false,
+    isLoading: false,
+    error
+  })),
   on(AuthActions.logout, (state) => ({
     ...state,
     isLoading: true

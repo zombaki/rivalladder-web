@@ -1,0 +1,211 @@
+<div class="admin-dashboard">
+  @if (currentUser$ | async; as user) {
+    <div class="dashboard-header">
+      <h1>
+        <mat-icon>admin_panel_settings</mat-icon>
+        Admin Dashboard
+      </h1>
+      <p class="club-name">{{ user.clubId }}</p>
+    </div>
+
+    <div class="dashboard-content">
+      <mat-tab-group>
+        <!-- Overview Tab -->
+        <mat-tab label="Overview">
+          <div class="tab-content">
+            <div class="stats-grid">
+              <mat-card>
+                <mat-card-header>
+                  <mat-icon>people</mat-icon>
+                  <mat-card-title>Total Players</mat-card-title>
+                </mat-card-header>
+                <mat-card-content>
+                  <div class="stat-value">24</div>
+                  <div class="stat-label">Active Members</div>
+                </mat-card-content>
+              </mat-card>
+
+              <mat-card>
+                <mat-card-header>
+                  <mat-icon>emoji_events</mat-icon>
+                  <mat-card-title>Active Ladders</mat-card-title>
+                </mat-card-header>
+                <mat-card-content>
+                  <div class="stat-value">4</div>
+                  <div class="stat-label">Running Competitions</div>
+                </mat-card-content>
+              </mat-card>
+
+              <mat-card>
+                <mat-card-header>
+                  <mat-icon>sports_tennis</mat-icon>
+                  <mat-card-title>Pending Challenges</mat-card-title>
+                </mat-card-header>
+                <mat-card-content>
+                  <div class="stat-value">8</div>
+                  <div class="stat-label">Awaiting Response</div>
+                </mat-card-content>
+              </mat-card>
+
+              <mat-card>
+                <mat-card-header>
+                  <mat-icon>trending_up</mat-icon>
+                  <mat-card-title>Matches This Month</mat-card-title>
+                </mat-card-header>
+                <mat-card-content>
+                  <div class="stat-value">45</div>
+                  <div class="stat-label">Completed Games</div>
+                </mat-card-content>
+              </mat-card>
+            </div>
+
+            <div class="recent-activity">
+              <mat-card>
+                <mat-card-header>
+                  <mat-card-title>Recent Activity</mat-card-title>
+                </mat-card-header>
+                <mat-card-content>
+                  <mat-list>
+                    <mat-list-item>
+                      <mat-icon matListItemIcon>person_add</mat-icon>
+                      <div matListItemTitle>New player registered</div>
+                      <div matListItemLine>Sarah Williams joined Men's Singles</div>
+                      <span matListItemMeta>2 hours ago</span>
+                    </mat-list-item>
+                    <mat-divider></mat-divider>
+                    <mat-list-item>
+                      <mat-icon matListItemIcon>sports_tennis</mat-icon>
+                      <div matListItemTitle>Challenge completed</div>
+                      <div matListItemLine>John vs Mike - Result: 6-4, 6-3</div>
+                      <span matListItemMeta>5 hours ago</span>
+                    </mat-list-item>
+                    <mat-divider></mat-divider>
+                    <mat-list-item>
+                      <mat-icon matListItemIcon>emoji_events</mat-icon>
+                      <div matListItemTitle>Ladder updated</div>
+                      <div matListItemLine>Rankings recalculated for Women's Singles</div>
+                      <span matListItemMeta>1 day ago</span>
+                    </mat-list-item>
+                  </mat-list>
+                </mat-card-content>
+              </mat-card>
+            </div>
+          </div>
+        </mat-tab>
+
+        <!-- Players Management Tab -->
+        <mat-tab label="Players">
+          <div class="tab-content">
+            <mat-card>
+              <mat-card-header>
+                <mat-card-title>Player Management</mat-card-title>
+                <button mat-raised-button color="primary">
+                  <mat-icon>person_add</mat-icon>
+                  Add Player
+                </button>
+              </mat-card-header>
+              <mat-card-content>
+                <p>Player management features will be implemented here.</p>
+                <ul>
+                  <li>View all club players</li>
+                  <li>Add new players</li>
+                  <li>Edit player details</li>
+                  <li>Assign players to ladders</li>
+                  <li>Manage player status</li>
+                </ul>
+              </mat-card-content>
+            </mat-card>
+          </div>
+        </mat-tab>
+
+        <!-- Ladders Management Tab -->
+        <mat-tab label="Ladders">
+          <div class="tab-content">
+            <mat-card>
+              <mat-card-header>
+                <mat-card-title>Ladder Management</mat-card-title>
+                <button mat-raised-button color="primary">
+                  <mat-icon>add</mat-icon>
+                  Create Ladder
+                </button>
+              </mat-card-header>
+              <mat-card-content>
+                <p>Ladder management features will be implemented here.</p>
+                <ul>
+                  <li>View all club ladders</li>
+                  <li>Create new ladders</li>
+                  <li>Edit ladder settings</li>
+                  <li>Manage ladder rules</li>
+                  <li>Archive old ladders</li>
+                </ul>
+              </mat-card-content>
+            </mat-card>
+          </div>
+        </mat-tab>
+
+        <!-- Challenges Management Tab -->
+        <mat-tab label="Challenges">
+          <div class="tab-content">
+            <mat-card>
+              <mat-card-header>
+                <mat-card-title>Challenge Management</mat-card-title>
+              </mat-card-header>
+              <mat-card-content>
+                <p>Challenge management features will be implemented here.</p>
+                <ul>
+                  <li>View all challenges</li>
+                  <li>Approve/reject challenges</li>
+                  <li>Record match results</li>
+                  <li>Resolve disputes</li>
+                  <li>Update rankings</li>
+                </ul>
+              </mat-card-content>
+            </mat-card>
+          </div>
+        </mat-tab>
+
+        <!-- Reports Tab -->
+        <mat-tab label="Reports">
+          <div class="tab-content">
+            <mat-card>
+              <mat-card-header>
+                <mat-card-title>Reports & Analytics</mat-card-title>
+              </mat-card-header>
+              <mat-card-content>
+                <p>Reporting features will be implemented here.</p>
+                <ul>
+                  <li>Player statistics</li>
+                  <li>Ladder activity reports</li>
+                  <li>Match history</li>
+                  <li>Participation trends</li>
+                  <li>Export data</li>
+                </ul>
+              </mat-card-content>
+            </mat-card>
+          </div>
+        </mat-tab>
+
+        <!-- Settings Tab -->
+        <mat-tab label="Settings">
+          <div class="tab-content">
+            <mat-card>
+              <mat-card-header>
+                <mat-card-title>Club Settings</mat-card-title>
+              </mat-card-header>
+              <mat-card-content>
+                <p>Club settings will be implemented here.</p>
+                <ul>
+                  <li>Club information</li>
+                  <li>Game rules configuration</li>
+                  <li>Notification settings</li>
+                  <li>User permissions</li>
+                  <li>System preferences</li>
+                </ul>
+              </mat-card-content>
+            </mat-card>
+          </div>
+        </mat-tab>
+      </mat-tab-group>
+    </div>
+  }
+</div>

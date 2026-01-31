@@ -5,6 +5,7 @@ import { map, catchError, delay, tap } from 'rxjs/operators';
 import * as AuthActions from './auth.actions';
 import { MockData } from '../../core/data/mock-data';
 import { Router } from '@angular/router';
+import { UserRole } from '../../core/models';
 
 @Injectable()
 export class AuthEffects {
@@ -40,6 +41,47 @@ export class AuthEffects {
         ofType(AuthActions.loginSuccess),
         tap(() => {
           this.router.navigate(['/dashboard']);
+        })
+      ),
+    { dispatch: false }
+  );
+
+  adminLogin$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(AuthActions.adminLogin),
+      delay(1000), // Simulate API call
+      map(({ email, password }) => {
+        // Mock authentication logic
+        const user = MockData.USERS.find((u) => u.email === email);
+
+        if (user && password.length >= 6) {
+          // Check if user has admin role
+          if (user.role === UserRole.Admin || user.role === UserRole.SuperAdmin) {
+            // Store token in localStorage
+            localStorage.setItem('auth_token', user.token);
+            localStorage.setItem('user_id', user.id);
+            return AuthActions.adminLoginSuccess({ user });
+          } else {
+            return AuthActions.adminLoginFailure({ 
+              error: 'Access denied. Admin privileges required.' 
+            });
+          }
+        } else {
+          return AuthActions.adminLoginFailure({ error: 'Invalid email or password' });
+        }
+      }),
+      catchError((error) =>
+        of(AuthActions.adminLoginFailure({ error: error.message || 'Login failed' }))
+      )
+    )
+  );
+
+  adminLoginSuccess$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(AuthActions.adminLoginSuccess),
+        tap(() => {
+          this.router.navigate(['/admin/dashboard']);
         })
       ),
     { dispatch: false }

@@ -16,6 +16,21 @@ export const loginFailure = createAction(
   props<{ error: string }>()
 );
 
+export const adminLogin = createAction(
+  '[Auth] Admin Login',
+  props<{ email: string; password: string }>()
+);
+
+export const adminLoginSuccess = createAction(
+  '[Auth] Admin Login Success',
+  props<{ user: AuthUser }>()
+);
+
+export const adminLoginFailure = createAction(
+  '[Auth] Admin Login Failure',
+  props<{ error: string }>()
+);
+
 export const logout = createAction('[Auth] Logout');
 
 export const logoutSuccess = createAction('[Auth] Logout Success');
