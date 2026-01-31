@@ -6,8 +6,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { RouterModule } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { User } from '../../../core/models';
-import * as AuthSelectors from '../../../store/auth/auth.selectors';
+import { User } from '../../../../core/models';
+import * as AuthSelectors from '../../../../store/auth/auth.selectors';
 
 @Component({
   selector: 'app-home',

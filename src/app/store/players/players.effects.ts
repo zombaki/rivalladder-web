@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { of } from 'rxjs';
 import { map, catchError, delay } from 'rxjs/operators';
@@ -7,6 +7,8 @@ import { MockData } from '../../core/data/mock-data';
 
 @Injectable()
 export class PlayersEffects {
+  private actions$ = inject(Actions);
+
   loadPlayers$ = createEffect(() =>
     this.actions$.pipe(
       ofType(PlayersActions.loadPlayers),
@@ -21,6 +23,4 @@ export class PlayersEffects {
       )
     )
   );
-
-  constructor(private actions$: Actions) {}
 }

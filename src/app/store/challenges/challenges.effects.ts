@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { of } from 'rxjs';
 import { map, catchError, delay } from 'rxjs/operators';
@@ -8,6 +8,8 @@ import { Challenge, ChallengeStatus } from '../../core/models';
 
 @Injectable()
 export class ChallengesEffects {
+  private actions$ = inject(Actions);
+
   loadChallenges$ = createEffect(() =>
     this.actions$.pipe(
       ofType(ChallengesActions.loadChallenges),
@@ -71,6 +73,4 @@ export class ChallengesEffects {
       )
     )
   );
-
-  constructor(private actions$: Actions) {}
 }
