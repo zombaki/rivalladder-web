@@ -1,11 +1,26 @@
 <mat-toolbar color="primary" class="header">
   <div class="header-content">
     <div class="logo-section">
-      <button mat-icon-button routerLink="/">
+      <button mat-icon-button [routerLink]="(isAuthenticated$ | async) ? '/dashboard' : '/'">
         <mat-icon>sports_tennis</mat-icon>
       </button>
-      <span class="logo-text" routerLink="/">Rival Ladder</span>
+      <span class="logo-text" [routerLink]="(isAuthenticated$ | async) ? '/dashboard' : '/'">Rival Ladder</span>
     </div>
+
+    @if (isAuthenticated$ | async) {
+      <nav class="nav-menu">
+        @for (item of menuItems; track item.path) {
+          <a 
+            mat-button 
+            [routerLink]="item.path"
+            routerLinkActive="active-nav-link"
+            class="nav-link">
+            <mat-icon>{{ item.icon }}</mat-icon>
+            <span>{{ item.label }}</span>
+          </a>
+        }
+      </nav>
+    }
 
     <div class="spacer"></div>
 
@@ -27,6 +42,35 @@
           <span>{{ theme.label }}</span>
         </button>
       </mat-menu>
+
+      @if (isAuthenticated$ | async) {
+        @if (currentUser$ | async; as user) {
+          <button mat-button [matMenuTriggerFor]="userMenu" class="user-button">
+            <mat-icon>account_circle</mat-icon>
+            <span class="user-name">{{ user.firstName }}</span>
+          </button>
+          <mat-menu #userMenu="matMenu">
+            <div class="user-info" mat-menu-item disabled>
+              <div class="user-name-full">{{ user.firstName }} {{ user.lastName }}</div>
+              <div class="user-email">{{ user.email }}</div>
+            </div>
+            <mat-divider></mat-divider>
+            <button mat-menu-item routerLink="/dashboard/profile">
+              <mat-icon>person</mat-icon>
+              <span>My Profile</span>
+            </button>
+            <button mat-menu-item (click)="logout()">
+              <mat-icon>logout</mat-icon>
+              <span>Logout</span>
+            </button>
+          </mat-menu>
+        }
+      } @else {
+        <button mat-raised-button color="accent" (click)="login()" class="login-button">
+          <mat-icon>login</mat-icon>
+          <span>Login</span>
+        </button>
+      }
     </div>
   </div>
 </mat-toolbar>
