@@ -7,7 +7,6 @@ export interface Player {
   email: string;
   currentRank: number;
   previousRank: number;
-  points: number;
   wins: number;
   losses: number;
   winStreak: number;

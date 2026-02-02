@@ -32,7 +32,7 @@ export class LadderListComponent implements OnInit {
   isLoading$: Observable<boolean>;
   currentUserId$: Observable<string | undefined>;
 
-  displayedColumns: string[] = ['rank', 'rankChange', 'player', 'record', 'points', 'streak', 'actions'];
+  displayedColumns: string[] = ['rank', 'rankChange', 'player', 'record', 'streak', 'actions'];
 
   constructor(private store: Store) {
     this.players$ = this.store.select(PlayersSelectors.selectPlayersByRank);
